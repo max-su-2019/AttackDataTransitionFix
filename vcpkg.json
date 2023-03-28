@@ -8,7 +8,7 @@
                      ],
     "features":  {
                      "mo2-install":  {
-                                         "description":  "AttackDataTransitionFix"
+                                         "description":  "Attack Data Transition Fix"
                                      }
                  }
 }

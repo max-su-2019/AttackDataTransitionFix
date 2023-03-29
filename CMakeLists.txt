@@ -13,7 +13,7 @@ include(GNUInstallDirs)
 # info
 project(
 	AttackDataTransitionFix
-	VERSION 0.0.1
+	VERSION 0.0.2
 	LANGUAGES CXX
 )
 

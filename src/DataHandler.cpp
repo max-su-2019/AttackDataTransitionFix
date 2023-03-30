@@ -13,11 +13,11 @@ namespace AttackDataTransitionFix
 
 	DelayedAttackDataHandler::DelayedAttackDataHandler()
 	{
-		InsertDelayedAttackData("attackPowerStartInPlace", { "MCO_IsAttacking", "MCO_InSprintAttack" }, "MCO_PowerAttackInitiate");
-		InsertDelayedAttackData("attackPowerStartForwardH2HRightHand", { "MCO_IsAttacking", "MCO_InSprintAttack" }, "MCO_PowerAttackInitiateH2H");
+		InsertDelayedAttackData("attackPowerStartInPlace", { "MCO_IsAttacking", "MCO_InSprintAttack" }, "MCO_PowerAttackEntry");
+		InsertDelayedAttackData("attackPowerStartForwardH2HRightHand", { "MCO_IsAttacking", "MCO_InSprintAttack" }, "MCO_PowerAttackH2HEntry");
 
-		InsertDelayedAttackData("attackStart", { "MCO_IsPowerAttacking", "MCO_InSprintPowerAttack" }, "MCO_AttackInitiate");
-		InsertDelayedAttackData("AttackStartH2HRight", { "MCO_IsPowerAttacking", "MCO_InSprintPowerAttack" }, "MCO_AttackInitiateH2H");
+		InsertDelayedAttackData("attackStart", { "MCO_IsPowerAttacking", "MCO_InSprintPowerAttack" }, "MCO_AttackEntry");
+		InsertDelayedAttackData("AttackStartH2HRight", { "MCO_IsPowerAttacking", "MCO_InSprintPowerAttack" }, "MCO_AttackH2HEntry");
 	}
 
 	bool DelayedAttackDataHandler::ShouldDelayAttack(RE::Actor* playerRef, const RE::BSFixedString& a_animationEvent)

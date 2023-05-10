@@ -11,8 +11,7 @@ namespace AttackDataTransitionFix
 			auto playerRef = RE::PlayerCharacter::GetSingleton();
 			auto playerHighData = playerRef && playerRef->currentProcess ? playerRef->currentProcess->high : nullptr;
 			if (playerHighData && playerHighData->attackData && std::addressof(playerHighData->attackData) == std::addressof(a_attackDataPtr) && a_animationEvent != a_attackDataPtr->event) {
-				auto handler = DelayedAttackDataHandler::GetSingleton();
-				if (handler->ShouldDelayAttack(playerRef, a_animationEvent)) {
+				if (DelayedAttackDataHandler::ShouldDelayAttack(playerRef, a_animationEvent)) {
 					DEBUG("Delay Attack Data \"{}\"", a_animationEvent.c_str());
 					return false;
 				}
@@ -27,8 +26,7 @@ namespace AttackDataTransitionFix
 		if (a_event && a_event->holder && a_event->holder->IsPlayerRef()) {
 			auto playerRef = a_event->holder->As<RE::Actor>();
 			if (playerRef) {
-				auto handler = DelayedAttackDataHandler::GetSingleton();
-				handler->ReapplyAttackData(playerRef, a_event->tag);
+				DelayedAttackDataHandler::ReapplyAttackData(playerRef, a_event->tag, a_event->payload);
 			}
 		}
 

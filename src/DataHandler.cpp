@@ -8,7 +8,7 @@ namespace AttackDataTransitionFix
 		if (!FindAttackData(playerRef, a_animationEvent))
 			return false;
 
-		const std::string BoolVarName = "ADTF_IsDelayed_" + std::string(a_animationEvent.c_str());
+		const std::string BoolVarName = "ADTF_ShouldDelay";
 		bool shouldDelayed = false;
 
 		return playerRef->GetGraphVariableBool(BoolVarName, shouldDelayed) && shouldDelayed;
@@ -16,7 +16,7 @@ namespace AttackDataTransitionFix
 
 	bool DelayedAttackDataHandler::ReapplyAttackData(RE::Actor* playerRef, const RE::BSFixedString& a_animationEvent, const RE::BSFixedString& a_payload)
 	{
-		constexpr char eventName[] = "ADTF_ReapplyAttackData";
+		constexpr std::string_view prefix = "ADTF_Reapply_";
 
 		if (!playerRef)
 			return false;
@@ -25,11 +25,13 @@ namespace AttackDataTransitionFix
 		if (!playerHighData || !playerHighData->attackData)
 			return false;
 
-		if (_stricmp(eventName, a_animationEvent.c_str()) == 0) {
-			auto attackData = FindAttackData(playerRef, a_payload);
+		std::string_view text{ a_animationEvent };
+		if (text.starts_with(prefix)) {
+			const auto attackEvent = text.substr(prefix.size());
+			auto attackData = FindAttackData(playerRef, attackEvent);
 			if (attackData && playerHighData->attackData.get() != attackData) {
 				playerHighData->attackData.reset(attackData);
-				DEBUG("Reapply Attack Data \"{}\" in event \"{}\"", a_payload, a_animationEvent.c_str());
+				DEBUG("Reapply Attack Data \"{}\" in event \"{}\"", attackEvent, text);
 				return true;
 			}
 		}
